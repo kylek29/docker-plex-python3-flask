@@ -1,10 +1,17 @@
 FROM linuxserver/plex:latest
 MAINTAINER Kyle Kimsey
 
-RUN apt-get update -y &&\
-  apt-get -y install python3.8 python3-pip &&\
-  yes | pip3 install virtualenv --quiet --no-cache-dir &&\
-  mkdir /config/python38-env &&\
-  virtualenv -p python3.8 /config/python38-env &&\
-  source /config/python38-env/bin/activate &&\
-  yes | pip3 install flask
+RUN apt-get -y update &&\
+	apt-get -y install python3 --no-install-recommends &&\
+	printenv &&\
+	echo ------------------------ &&\
+	apt-get -y -qq clean
+
+ENV PUID=1000 \
+	PGID=1000 \
+	VERSION=docker \
+	UMASK_SET=022
+
+CMD ["python3", "/config/python-server/flask-api/api.py"]
+
+EXPOSE 5050
