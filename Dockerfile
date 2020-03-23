@@ -3,8 +3,6 @@ MAINTAINER Kyle Kimsey
 
 RUN apt-get -y update &&\
 	apt-get -y install python3 --no-install-recommends &&\
-	printenv &&\
-	echo ------------------------ &&\
 	apt-get -y -qq clean
 
 ENV PUID=1000 \
